@@ -1,7 +1,7 @@
 
 
 #### https://forum.linuxcnc.org/47-hal-examples/13201-run-step-hold-resume-buttons
-loadrt and2 count=4
+loadrt and2 count=3
 loadrt or2 count=4
 loadrt toggle count=1
 loadrt toggle2nist count=1
@@ -20,13 +20,13 @@ addf toggle2nist.0 servo-thread
 # External Program Pause/Resume and Run/Step Buttons
 
 #=== Pause/Resume Section
-net pause-resume-btn and2.0.in0 and2.1.in0 <= parport.1.pin-02-out-fake
-net plasmac:program-is-paused toggle2nist.0.is-on and2.0.in1 and2.3.in1
+net red-btn and2.1.in0 <= parport.1.pin-02-out-fake #Red Button
+net plasmac:program-is-paused toggle2nist.0.is-on and2.0.in1
 net plasmac:program-is-running and2.1.in1
-net pause-sig or2.0.in0 <= and2.0.out
-net resume-sig or2.0.in1 <= and2.1.out
-net toggle-ok toggle.0.in <= or2.0.out
-net togglesig toggle2nist.0.in <= toggle.0.out
+net resume-sig and2.0.out => or2.0.in0
+net pause-sig and2.1.out => or2.0.in1
+net toggle-ok or2.0.out => toggle.0.in
+net togglesig toggle.0.out => toggle2nist.0.in
 
 unlinkp halui.program.pause
 net plasmac:program-pause or2.2.in0
@@ -39,7 +39,7 @@ net resume-enable or2.3.out => halui.program.resume
 net toggleoff toggle2nist.0.off => or2.3.in1
 
 #==== Run/Step Section
-net run-step-btn and2.2.in0 and2.3.in0 <= parport.1.pin-03-out-fake
+net green-btn and2.0.in0 and2.2.in0 <= parport.1.pin-03-out-fake #Green Button
 net plasmac:program-is-idle and2.2.in1
 
 unlinkp halui.program.run
