@@ -16,10 +16,14 @@ addf or2.3 servo-thread
 addf toggle.0 servo-thread
 addf toggle2nist.0 servo-thread
 
-# External Program Pause/Resume and Run/Step Buttons
+# External Program Pause and Run/Resume Buttons
 
-#=== Pause/Resume Section
-net red-btn and2.1.in0 <= parport.1.pin-02-out-fake #Red Button
+#=== Button mapping section ****Set to correct parport pin****
+net red-btn and2.1.in0 <= parport.1.pin-02-out-fake #Red Button 
+net green-btn and2.0.in0 and2.2.in0 <= parport.1.pin-03-out-fake #Green Button
+
+
+#=== Pause/resume Section
 net plasmac:program-is-paused toggle2nist.0.is-on and2.0.in1
 net plasmac:program-is-running and2.1.in1
 net resume-sig and2.0.out => or2.0.in0
@@ -37,7 +41,7 @@ net plasmac:program-resume or2.3.in0
 net resume-enable or2.3.out => halui.program.resume
 net toggleoff toggle2nist.0.off => or2.3.in1
 
-#==== Run/Step Section
+#==== Run Section
 net green-btn and2.0.in0 and2.2.in0 <= parport.1.pin-03-out-fake #Green Button
 net plasmac:program-is-idle and2.2.in1
 
