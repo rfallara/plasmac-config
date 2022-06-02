@@ -19,8 +19,8 @@ addf toggle2nist.0 servo-thread
 # External Program Pause and Run/Resume Buttons
 
 #=== Button mapping section ****Set to correct parport pin****
-net red-btn and2.1.in0 <= parport.0.pin-14-in-not #Red Button 
-net green-btn and2.0.in0 and2.2.in0 <= parport.0.pin-16-in-not #Green Button
+net red-btn and2.1.in0 <= parport.1.pin-02-out-fake #Red Button 
+net green-btn and2.0.in0 and2.2.in0 <= parport.1.pin-03-out-fake #Green Button
 
 
 #=== Pause/resume Section
